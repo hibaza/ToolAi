@@ -1,0 +1,29 @@
+<form #loginForm="ngForm" novalidate (ngSubmit)="loginSubmit(loginForm.value)" class="row justify-content-md-center col-md-12">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="form-login">
+                    <h4>Vui lòng đăng nhập</h4>
+                    <input type="email" ngModel name="username" class="form-control input-sm chat-input" placeholder="Email" style="margin: 28px 0 28px 0;"
+                        required/>
+
+                    <input type="password" ngModel name="password" class="form-control input-sm chat-input" placeholder="Mật khẩu" style="margin: 28px 0 28px 0;"
+                        required/>
+                   
+                    <div class="wrapper">
+                        <span class="group-btn">
+
+                            <button type="submit" class="btn btn-primary btn-md ">Đăng nhập</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger {{this.class_mess}}" style="margin-top: 15px;">
+                    <label>{{alert}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

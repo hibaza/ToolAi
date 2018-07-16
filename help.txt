@@ -1,0 +1,25 @@
+ng serve
+npm install jquery --save
+npm install --save-dev @types/jquery
+
+npm uninstall jquery
+
+ng generate component name
+ng generate service hero
+
+http://localhost:4200?from_uid=1111&fullname=Dinh Quoc Cuong&address=hà nội việt nam các địa điểm ưa thích&image_url=http://tranhdantuongdep.com/plugins/responsive_filemanager/source/1-%20Thien%20Nhien/TN0182.jpg&email=dinhquoccuongnb@gmail.com&phone=0979354170&website=nhadat.vn&is_poster=true
+http://localhost:4200/customer?to_uid=1111&website=nhadat.vn
+
+
+
+{
+"to":"dinhquoccuongnb@gmail.com",
+"from":"dinhquoccuongnb@gmail.com",
+"sender":"nhadat.vn",
+"subject":"Thông báo",
+"reply_to":null,
+"text":"",
+"html":"<p>thu gui</p>",
+"attachment":null,
+"smtp":1
+}

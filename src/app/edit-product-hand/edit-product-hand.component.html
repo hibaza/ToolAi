@@ -1,0 +1,196 @@
+<div class="panel">
+  <div class="content-panel">
+
+
+    <div class="form-group row">
+      <div class="col-xs-2">
+        <label for="template_id">Tìm:</label>
+      </div>
+      <div class="col-xs-4">
+        <input class="form-control" type="text" placeholder="Mã sản phẩm cần copy" #copy>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-success" (click)="copyProducts(copy.value)">Tìm kiếm</button>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <div class="col-xs-1">
+        <label>STT</label>
+      </div>
+      <div class="col-xs-10">
+        <label>Mã sản phẩm</label>
+      </div>
+      <div class="col-xs-1">
+        <label>Xem</label>
+      </div>
+    </div>
+
+    <div *ngFor="let val of products;let i = index" class="form-group row ">
+      <div class="col-xs-1">
+        <div class="form-check">
+          {{i+1}}
+        </div>
+      </div>
+      <div class="col-xs-10">
+        {{val.product.value}}
+      </div>
+
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-success" (click)="viewRow(i)" data-toggle="modal" data-target="#viewDetailModal">Xem</button>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="form-group row  footer-panel">
+    <div class="col-xs-1">
+      <button type="submit" class="btn btn-success">Cập nhật</button>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-success" (click)="refreshForm()">Làm mới</button>
+    </div>
+  </div>
+
+
+
+
+  <!-- modal view -->
+  <div class="modal" id="viewDetailModal">
+    <div class="modal-dialog modal-lg" style="width: 95%">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Chi tiết mã: {{this.productSelect.title}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form class="panel" novalidate #editForm="ngForm" (ngSubmit)="submitEditForm(editForm.value)">
+           
+            <div class="form-group row">
+
+              <div class="col-xs-2">
+                <label for="template_id">Sử dụng mẫu:</label>
+              </div>
+              <div class="col-xs-4">
+                <select class="form-control" name="template_id" [(ngModel)]="template_id" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let val of templates" [value]="val.id" ng-selected="val.id == template_id">
+                    {{val.desc}}
+                  </option>
+                </select>
+
+              </div>
+
+            </div>
+
+            <div class="form-group row">
+              <div class="col-xs-2">
+                <label>Tên</label>
+              </div>
+              <div class="col-xs-4">
+                <label>Giá trị</label>
+              </div>
+              <div class="col-xs-2">
+                <label>Loại</label>
+              </div>
+              <div class="col-xs-3">
+                <label>Mô tả</label>
+              </div>
+              <div class="col-xs-1">
+                <label>Xóa</label>
+              </div>
+            </div>
+
+            <div *ngFor="let key of productKeys;let i = index" class="form-group row ">
+              <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="Tên" disabled name="name" [(ngModel)]="productKeys[i]" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-4">
+                <input class="form-control" type="text" placeholder="Giá trị" name="entity" [(ngModel)]="product[key].value" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-2">
+                <select class="form-control" name="type" [(ngModel)]="product[key].type" [ngModelOptions]="{standalone: true}">
+                  <option value="text" ng-selected="product[key].type == text">Văn bản</option>
+                  <option value="number" ng-selected="product[key].type == number">Số</option>
+                  <option value="size" ng-selected="product[key].type == size">Kích cỡ</option>
+                  <option value="image" ng-selected="product[key].type == image">Ảnh</option>
+                  <option value="website" ng-selected="product[key].type == website">Website</option>
+                </select>
+              </div>
+              <div class="col-xs-3">
+                <input class="form-control" type="text" placeholder="Mô tả" name="desc" [(ngModel)]="product[key].desc" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-success" (click)="deleteRow(productKeys[i])">Xóa</button>
+              </div>
+
+            </div>
+
+            <div *ngFor="let val of newProducts;let i = index" class="form-group row">
+              <div class="col-xs-2">
+                <input class="form-control" type="text" placeholder="Tên" name="name" [(ngModel)]="val.name" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-4">
+                <textarea class="form-control" type="text" placeholder="Giá trị" name="entity" [(ngModel)]="val.value" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+              <div class="col-xs-2">
+                <select class="form-control" name="type" [(ngModel)]="val.type" [ngModelOptions]="{standalone: true}">
+                  <option value="text" ng-selected="true">Văn bản</option>
+                  <option value="number">Số</option>
+                  <option value="size">Kích cỡ</option>
+                  <option value="image">Ảnh</option>
+                  <option value="website">Website</option>
+                </select>
+              </div>
+              <div class="col-xs-3">
+                <textarea class="form-control" type="text" placeholder="Mô tả" name="desc" [(ngModel)]="val.desc" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+              <div class="col-xs-1">
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xs-2">
+                <button type="button" class="btn btn-success" (click)="addRowNew()">Thêm</button>
+              </div>
+            </div>
+
+
+
+            <div class="form-group row  footer-panel">
+              <div class="col-xs-2">
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+              </div>
+              <div class="col-xs-2">
+                <button type="button" class="btn btn-success" (click)="refreshForm()">Làm mới</button>
+              </div>
+            </div>
+            <div class="form-group row">
+            </div>
+            <div class=" col-xs-12">
+                <div class="form-group row">
+                  <div class="alert alert-danger {{alert.error}}">
+                    <strong>Lỗi!</strong> {{alert.mess}}
+                  </div>
+                  <div class="alert alert-success {{alert.ok}}">
+                    <strong>Ok!</strong> {{alert.mess}}
+                  </div>
+                </div>
+  
+              </div>
+          </form>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

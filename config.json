@@ -1,0 +1,5 @@
+{
+    "socketUri": "ws://localhost:5000/",
+    "apiUri": "http://localhost:5000/",
+    "apiFilesUri": "http://localhost:60853/"
+}

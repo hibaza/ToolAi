@@ -1,0 +1,5 @@
+{
+    "Api": "http://localhost:64834/",
+    "apiUrlWitEntities": "https://api.wit.ai/entities",
+    "apiUrlWitGetMessage": "https://api.wit.ai/message?"
+}
